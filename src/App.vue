@@ -6,8 +6,17 @@
 
 <style>
 body {
-  font-size: 16px;
-  background-color: #f8f8f8;
-  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  overflow: scroll;
+  overflow-x: hidden;
 }
+  #app{
+    font-family: microsoft yahei;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    background: #ebebeb;
+    margin: 0 auto;
+  }
 </style>

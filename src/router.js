@@ -1,34 +1,50 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Login from './view/login'
+import Home from './view/home'
+import Information from './view/information'
+import Register from './view/register'
+import BindCode from './view/bindCode'
 
 Vue.use(Router);
 
 const routes = [
   {
-    path: '*',
-    redirect: '/goods'
-  },
-  {
-    name: 'user',
-    component: () => import('./view/user'),
+    path: '/',
+    component: Home,
     meta: {
-      title: '会员中心'
+      title: "首页",
+      index: 10,
     }
   },
   {
-    name: 'cart',
-    component: () => import('./view/cart'),
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/information',
+    component: Information,
     meta: {
-      title: '购物车'
+      title: "激活码查询",
+      index: 10,
     }
   },
   {
-    name: 'goods',
-    component: () => import('./view/goods'),
+    path: '/register',
+    component: Register,
     meta: {
-      title: '商品详情'
+      title: "注册",
+      index: 10,
     }
-  }
+  },
+  {
+    path: '/bindCode',
+    component: BindCode,
+    meta: {
+      title: "绑定激活码",
+      index: 10,
+    }
+  },
 ];
 
 // add route path

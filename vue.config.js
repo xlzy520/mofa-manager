@@ -1,6 +1,12 @@
+const path = require('path')
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
-  outputDir: 'dist',
-  publicPath: process.env.NODE_ENV === 'production' ? '/vant-demo/' : '/',
+  lintOnSave: false,
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   css: {
     loaderOptions: {
       less: {
@@ -13,5 +19,12 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': resolve('src')
+      }
+    }
+  },
 };
