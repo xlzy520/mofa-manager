@@ -51,17 +51,9 @@
       return {
         str: true,
         userName: 'abc',
-        card: "KgNjQmTqVtYv2y5ADaFc",
-        userCode: "KgNjQmTqVtYv2y5ADaFc",
+        card: "KhNjQnTqVtYv2y5A7DaF",
         password: "123456",
-        imgC: "",
-        curtxt: "",
-        codes: "",
-        codeUrl: "",
         isShow: false,
-        class3: "",
-        captcha_id: "",
-        captcha_code: "1111111",
         name: "",
         id: 0,
 

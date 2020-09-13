@@ -33,8 +33,7 @@
     name: 'information',
     data() {
       return {
-        card: 'JK84488ecae54ca089a02cf16dca7b94',
-        // card: 'KgNjQmTqVtYv2y5ADaFc',
+        card: '',
         show: false,
         data: [],
         user: 0
