@@ -17,27 +17,32 @@
             <div class="center">
               <div class="operation">
                 <div>到期时间：{{item.expire_time | formatDate}}</div>
-                <div class="OPbuttom" v-if="renewal(item)">续费</div>
-                <div class="OPbuttom" v-if="scan(item)">扫码</div>
-                <div class="OPbuttom" v-if="restart1(item)">唤醒</div>
-                <div class="OPbuttom" v-if="restart2(item)">重启</div>
+                <div style="display: flex">
+                  <div class="OPbuttom" v-if="renewal(item)" @click="toRenewal(item)">续费</div>
+                  <div class="OPbuttom" v-if="scan(item)" @click="toScan(item)">扫码</div>
+                  <div class="OPbuttom" v-if="restart1(item)" @click="toRestart1(item)">唤醒</div>
+                  <div class="OPbuttom" v-if="restart2(item)" @click="toRestart2(item)">重启</div>
+                </div>
               </div>
               <div class="HOmessage">
-                <img :src="item.wx_small_head" alt="">
-                <div>
+                <img v-if="item.wx_local_id" :src="item.wx_small_head" alt="">
+                <van-icon size="0.5rem" @click="toScan(item)" name="add-o" v-else />
+                <div class="right-content" v-if="item.wx_local_id">
                   <div>{{item.wx_nick_name}}</div>
                   <div class="homesz">
-                    <div>微信状态：<i :class="item.status">{{wxStatus(item.wx_status)}}</i></div>
-                    <VanCheckbox :value="true" @change="changeDefault" checked-color="#07c160" class="checkbox">
-                      设置为默认账号
-                    </VanCheckbox>
+                    <div style="margin-right: 10px">
+                      微信状态：<i :class="wxStatusColor(item.wx_status)">{{wxStatus(item.wx_status)}}</i>
+                    </div>
+<!--                    <VanCheckbox :value="true" @change="changeDefault" checked-color="#07c160" class="checkbox">-->
+<!--                      设置为默认账号-->
+<!--                    </VanCheckbox>-->
                     <img src="http://47.114.57.144:90/cdn_wf/static/img/xq.png" alt="">
                   </div>
                 </div>
               </div>
-              <div class="HOmessage" style="display: none;"><img
-                  src="http://47.114.57.144:90/cdn_wf/static/img/adduser.png" alt=""
-                  style="border: 1px solid rgb(204, 204, 204);"></div>
+              <div class="HOmessage" style="display: none;">
+                <img src="http://47.114.57.144:90/cdn_wf/static/img/adduser.png" alt="" style="border: 1px solid rgb(204, 204, 204);">
+              </div>
             </div>
           </li>
           <div class="addCAT" @click="addCAT">新增激活码</div>
@@ -80,60 +85,13 @@
           </div>
         </div>
       </div>
-      <div class="my jm" style="display: none;">
-        <ul class="content">
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/pengyouquanzhuanfa.png"
-                                     class="icon"> <i>朋友圈转发</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/dianzanpinglun.png" class="icon">
-              <i>朋友圈点赞评论</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/mingpian1.png" class="icon"> <i>自动添加名片</i>
-            </div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/linghongbao.png" class="icon"> <i>自动红包与收款</i>
-            </div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/huifu1.png" class="icon">
-              <i>自动回复</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/qf.png" class="icon"> <i>群发消息</i>
-            </div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/zhuanb.png" class="icon">
-              <i>多群转播</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/tongyongshezhi.png" class="icon">
-              <i>通用设置</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/zhanghaoanquan.png" class="icon">
-              <i>账号与安全</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/caozuo.png" class="icon">
-              <i>操作说明</i></div>
-          </li>
-          <li>
-            <div class="center"><img src="http://47.114.57.144:90/cdn_wf/static/img/about .png" class="icon">
-              <i>关于我们</i></div>
-          </li>
-        </ul>
-      </div>
-    </div> <!----> <!----></div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import commonApi from "../api/common";
-  import { wxStatusMap } from "../utils/enum";
+  import commonApi from "../../api/common";
+  import { wxStatusMap } from "@/utils/enum";
   import dayjs from 'dayjs'
 
   export default {
@@ -171,14 +129,38 @@
         return dayjs().isAfter(dayjs(item.expire_time)) && item.wx_status === 2
       },
       wxStatus(val){
-        return wxStatusMap[val]
+        if (val === 2) {
+          return '在线'
+        }
+        return '离线'
+      },
+      wxStatusColor(val){
+        if (val === 2) {
+          return 'green-status'
+        }
+        return 'red-status'
+      },
+
+      toRenewal(item){
+        this.$router.push({path: '/bindCode', query: {id: item.user_id, type: 'renewal'}})
+      },
+      toScan(item){
+        this.$router.push({path: '/bindCode', query: {id: item.user_id}})
+      },
+      toRestart1(item){
+        commonApi.restart1({
+
+        })
+      },
+      toRestart2(item){
+        this.$router.push({path: '/bindCode', query: {id: item.user_id}})
       },
       signOut() {
         localStorage.clear()
         this.$router.push('/login')
       },
       addCAT() {
-        this.$router.push('/bingCode')
+        this.$router.push('/bindCode')
       },
       getList() {
         commonApi.getWork({
@@ -537,9 +519,7 @@
   }
 
   .wxManage1 .list_user li .center .operation {
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     padding: .2rem;
     color: #1b1b1b;
@@ -554,7 +534,8 @@
     font-size: .22rem;
     text-align: center;
     background: #3d7ffb;
-    border-radius: 5px
+    border-radius: 5px;
+    margin-left: 0.1rem;
   }
 
   .wxManage1 .list_user li .center .HOmessage {
@@ -563,6 +544,13 @@
     padding: 0 .2rem .2rem;
     -ms-flex-pack: justify;
     justify-content: space-between
+  }
+
+  .right-content{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
   }
 
   .wxManage1 .list_user li .center .HOmessage > img {

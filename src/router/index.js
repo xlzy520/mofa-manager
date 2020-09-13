@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './view/login'
-import Home from './view/home'
-import Information from './view/information'
-import Register from './view/register'
-import BindCode from './view/bindCode'
+import Login from '@/view/login/index.vue'
+import Home from '@/view/home'
+import Information from '@/view/information'
+import Register from '@/view/register'
+import BindCode from '@/view/bindCode'
+import BindQRCode from '@/view/bindQrCode'
 
 Vue.use(Router);
 
@@ -42,6 +43,14 @@ const routes = [
     component: BindCode,
     meta: {
       title: "绑定激活码",
+      index: 10,
+    }
+  },
+  {
+    path: '/BindQRCode',
+    component: BindQRCode,
+    meta: {
+      title: "绑定微信",
       index: 10,
     }
   },

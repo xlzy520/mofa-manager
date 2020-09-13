@@ -7,7 +7,7 @@ export default {
     return fetch('/work/get', data, 'get')
   },
   getWxQrcode(data) {
-    return fetch('/wx/login/getqrcode', data, )
+    return fetch('/wx/login/getqrcode', data)
   },
   renewal({card, workId}) {
     return fetch(`/work/renewal?card=${card}&workId=${workId}`)
@@ -17,5 +17,8 @@ export default {
   },
   restart2(data) {
     return fetch('/wx/restart2', data)
+  },
+  checkWxScanLogin(data) {
+    return fetch('/wx/login/checklogin/werw', data)
   },
 }

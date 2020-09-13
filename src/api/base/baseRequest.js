@@ -17,7 +17,7 @@ baseRequest.interceptors.response.use(
         duration: 2000
       })
       // token已过期
-      if (res.Code === 45001) {
+      if (res.Code === "45001") {
         localStorage.clear()
         router.push('/login')
       }

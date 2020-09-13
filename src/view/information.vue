@@ -10,7 +10,7 @@
       <div class="back_">
         <div class="input">
           <div>{{user?'请输入卡密查询账号': '卡密'}}</div>
-          <input type="text" placeholder="请输入卡密" disabled="show" v-model="card"></div>
+          <input type="text" placeholder="请输入卡密" v-model="card"></div>
         <div class="text">
           <div class="text_div" v-for="item in data">
             <div>使用状态：{{item.status}}</div>

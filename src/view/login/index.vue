@@ -42,7 +42,8 @@
 
 <script>
   import { Toast } from 'vant'
-  import userApi from '../api/user'
+  import userApi from '@/api/user'
+  import commonApi from "../../api/common";
 
   export default {
     name: 'login',
@@ -86,16 +87,6 @@
       redirect(path){
         this.$router.push(path)
       },
-      errorCode(e) {
-        return "ok" != e.errmsg && ("尚未登录,请登录后继续" == e.errmsg ? (Toast("尚未登录,请先登录！"),
-          this.$router.push({
-            path: "/login"
-          })) : e.errmsg.indexOf("token") >= 0 ? (Toast("登录已超时，请重新登录！"),
-          this.$router.push({
-            path: "/login"
-          })) : e.errmsg.indexOf("频繁") < 0 && Toast(e.errmsg),
-          !0)
-      },
       Land(){
         let e = this;
         if (0 === this.id) {
@@ -106,7 +97,7 @@
             return Toast("请输入密码！")
           }
         } else {
-          if ("" === this.userCode){
+          if ("" === this.card){
             return Toast("请输入激活码！")
           }
         }
@@ -121,19 +112,21 @@
           card: this.card,
           userName: e.userName,
           password: e.password,
-          // captcha_id: e.captcha_id,
-          // captcha_code: "1111111"
         }
         userApi.login(data).then(res => {
           this.$toast('登录成功')
           e.str = true
           e.token = res.token;
           this.$store.dispatch('user/saveUserInfo', res)
-          if (!res.UserInfo.card_code) {
-            this.$router.push('/bindCode')
-          } else {
-            this.$router.push('/')
-          }
+          commonApi.getWork({
+            userId: res.UserInfo.id
+          }).then(res1 => {
+            if (!res1.length) {
+              this.$router.push('/bindCode')
+            } else {
+              this.$router.push('/')
+            }
+          })
         }).finally(() => {
           loading.close()
         })
@@ -252,11 +245,11 @@
   }
 
   .login .anm {
-    animation: mymove2-data-v-f2cdea6e 8s forwards
+    /*animation: mymove2-data-v-f2cdea6e 8s forwards*/
   }
 
   .login .oper {
-    opacity: 0;
+    /*opacity: 0;*/
     width: 100%;
     height: 100%;
     background: #fff

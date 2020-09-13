@@ -5,95 +5,54 @@
         <span @click="$router.back(-1)">
           <img src="http://47.114.57.144:90/cdn_wf/static/img/fh.png"
                class="Return"></span>
-        <i>{{getTitle()}}</i></div>
+        <i>绑定微信</i></div>
     </div>
     <div class="box_">
       <div class="box_top">
         <div class="content">
           <div class="modify">
-            <div class="activation">
-              <div class="expansion">
-                <div class="center_input" style="color: rgb(162, 159, 163); border-color: rgb(236, 236, 236);">
-                  <div>激活码</div>
-                  <input type="text" placeholder="请输入激活码" v-model="code"></div>
-                <div class="promotion" @click="checkCode">下一步</div>
-                <div class="promotion" style="margin-top: 0.37rem; display: none;">确认激活</div>
+            <div class="binding">
+              <div class="qrdiv">
+                <div class="titl">请用您的手机打开微信扫描此二维码</div>
+                <div class="titl">二维码{{expire}}秒到期</div> <!---->
+                <div class="cz">重置二维码</div>
               </div>
-              <div class="text">
-                <i style="text-align: center;">小提示：</i>
-                <i>
-                  <span class="spans">1、</span>
-                  <span class="span">扫码后需要同意相关授权，否则无法使用本站提供的所有功能！</span>
-                </i>
-                <i>
-                  <span class="spans">2、</span>
-                  <span class="span">同一个账号可绑定多个微信号，但需要增加新的激活码（每个激活码绑定一个微信号）</span>
-                </i>
-                <i>
-                  <span class="spans">3、</span>
-                  <span class="span">同一个账号可同时上线多个微信号，但需要设置一个微信号为主账号，主账号可使用产品内的所有功能（主账号可切换）</span>
-                </i>
-              </div>
+            </div>
+            <div class="text">
+              <i>小提示：</i>
+              <i>本平台为虚拟IP登录，可能会存在风险提示</i>
+              <i>如打开本页面扫描二维码，须用当前手机扫描。请用PC端打开本页面，再用手机进行扫描！</i>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <wxQRCode :name="name" :show="popupShow" :qrcode="qrcode" @close="popupShow = false"></wxQRCode>
   </div>
 </template>
 
 <script>
   import cardApi from "../api/card";
-  import wxQRCode from "../components/wxQRCode";
-  import commonApi from "../api/common";
 
   export default {
     name: 'bindCode',
-    components: {
-      wxQRCode,
-    },
     data() {
       return {
+        expire: '',
         code: '',
         popupShow: false,
         workId: '',
         name: '',
-        qrcode: '',
-        listUserId: '',
-        type: ''
+        qrcode: ''
       }
     },
     computed: {
       userId() {
         return localStorage.getItem('userId')
-      },
+      }
     },
     methods: {
-      getTitle(){
-        const map = {
-          'renewal': '续费激活码'
-        }
-        const title = map[this.type]
-        return title ? title : '绑定激活码'
-      },
       getWxQrcode() {
-        commonApi.getWxQrcode({
-          workId: this.workId
-        }).then(res => {
-          this.popupShow = true
-          this.qrcode = res
-          this.checkWxScanLogin()
-        })
-      },
-      checkWxScanLogin(){
-        let timer = setInterval(() => {
-          commonApi.checkWxScanLogin({uuid: 0}).then(res => {
-            clearInterval(timer)
-            this.$toast('扫码成功')
-            this.$router.push('/')
-          })
-        }, 5 * 1000)
+        this.popupShow = true
       },
       checkCode() {
         if (!this.code) {
@@ -102,20 +61,20 @@
         }
         cardApi.active({
           card: this.code,
-          userId: this.listUserId ? this.listUserId :this.userId
+          userId: this.userId
         }).then(res => {
           this.$toast('新增激活码成功')
-          this.workId = res.id
-          this.name = res.wx_nick_name
+          this.workId = res.wx_local_id
           this.getWxQrcode()
           console.log(res);
         })
       },
-    },
-    mounted() {
-      const { id, type } = this.$route.query
-      this.listUserId = id
-      this.type = type
+      next() {
+
+      },
+      pre() {
+
+      }
     },
   }
 </script>

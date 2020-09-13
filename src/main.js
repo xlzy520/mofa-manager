@@ -2,10 +2,11 @@ import Vue from 'vue';
 import App from './App';
 import { router } from './router';
 import store from "./store";
-import { Toast, Checkbox, Popup } from "vant";
+import { Toast, Checkbox, Popup, Icon } from "vant";
 
 Vue.use(Checkbox)
 Vue.use(Popup)
+Vue.use(Icon)
 
 function initSize() {
   var o, n, i, a, r;
