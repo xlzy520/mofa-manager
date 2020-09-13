@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Toast } from "vant";
-import router from '../../router'
+import router from '@/router'
 
 const baseRequest = axios.create({
   baseURL: 'http://101.133.152.103:8091/vbiz/',
@@ -17,7 +17,7 @@ baseRequest.interceptors.response.use(
         duration: 2000
       })
       // token已过期
-      if (res.Code === "45001") {
+      if (["45000", '45001'].includes(res.Code)) {
         localStorage.clear()
         router.push('/login')
       }
@@ -27,12 +27,18 @@ baseRequest.interceptors.response.use(
     }
   },
   error => {
-    error.message = error.message === 'timeout of 10000ms exceeded' ? '连接服务器超时！' : error.message
-    Toast({
-      message: error.message,
-      type: 'error',
-      duration: 1.5 * 1000
-    })
+    if (error.response.status === 404) {
+      Toast('token已过期或未登录')
+      localStorage.clear()
+      router.push('/login')
+    } else{
+      error.message = error.message === 'timeout of 10000ms exceeded' ? '连接服务器超时！' : error.message
+      Toast({
+        message: error.message,
+        type: 'error',
+        duration: 1.5 * 1000
+      })
+    }
     return Promise.reject(error)
   }
 )
