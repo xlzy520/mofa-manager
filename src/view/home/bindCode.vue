@@ -44,9 +44,9 @@
 </template>
 
 <script>
-  import cardApi from "../api/card";
-  import wxQRCode from "../components/wxQRCode";
-  import commonApi from "../api/common";
+  import cardApi from "@/api/card";
+  import wxQRCode from "@/components/wxQRCode";
+  import commonApi from "@/api/common";
 
   export default {
     name: 'bindCode',

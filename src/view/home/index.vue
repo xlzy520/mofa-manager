@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import commonApi from "../../api/common";
+  import commonApi from "@/api/common";
   import { wxStatusMap } from "@/utils/enum";
   import dayjs from 'dayjs'
 

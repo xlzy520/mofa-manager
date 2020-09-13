@@ -43,7 +43,7 @@
 <script>
   import { Toast } from 'vant'
   import userApi from '@/api/user'
-  import commonApi from "../../api/common";
+  import commonApi from "@/api/common";
 
   export default {
     name: 'login',

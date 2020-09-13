@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import cardApi from "../api/card";
+  import cardApi from "@/api/card";
 
   export default {
     name: 'bindCode',

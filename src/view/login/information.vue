@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import cardApi from "../api/card";
+  import cardApi from "@/api/card";
   import { Dialog } from 'vant'
   export default {
     name: 'information',

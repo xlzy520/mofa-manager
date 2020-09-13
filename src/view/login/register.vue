@@ -37,8 +37,8 @@
 </template>
 
 <script>
-  import commonApi from "../api/common";
-  import userApi from "../api/user";
+  import commonApi from "@/api/common";
+  import userApi from "@/api/user";
   import { Dialog } from 'vant'
   export default {
     name: 'register',
