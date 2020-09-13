@@ -2,10 +2,10 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/view/login/index.vue'
 import Home from '@/view/home'
-import Information from '@/view/information'
-import Register from '@/view/register'
-import BindCode from '@/view/bindCode'
-import BindQRCode from '@/view/bindQrCode'
+import Information from '@/view/home/information'
+import Register from '@/view/login/register'
+import BindCode from '@/view/home/bindCode'
+import BindQRCode from '@/view/home/bindQrCode'
 
 Vue.use(Router);
 
