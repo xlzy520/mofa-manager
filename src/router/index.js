@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/view/login/index.vue'
 import Home from '@/view/home'
-import Information from '@/view/home/information'
+import Information from '@/view/login/information'
 import Register from '@/view/login/register'
 import BindCode from '@/view/home/bindCode'
 import BindQRCode from '@/view/home/bindQrCode'

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Toast } from "vant";
-import router from '@/router'
+import { router } from '@/router'
 
 const baseRequest = axios.create({
   baseURL: 'http://101.133.152.103:8091/vbiz/',
