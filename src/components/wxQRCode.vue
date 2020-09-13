@@ -1,8 +1,8 @@
 <template>
-  <van-popup class="qr_div" :value="show" @close="close">
+  <van-popup class="qr_div" :value="true" @close="close">
     <img src="http://47.114.57.144:90/cdn_wf/static/img/colse1.png" class="clorsICON" @click="close">
     <div class="QRdiv">
-      <div style="padding-bottom: 0.5rem;">二维码到期时间:117 秒</div>
+      <div style="padding-bottom: 0.5rem;">二维码到期时间:{{expire}} 秒</div>
       <div index="0" class="qrLIST">
         <div>{{name}}</div>
         <div style="padding: 0.5rem 0px; display: none;"></div>
@@ -27,20 +27,16 @@ export default {
     },
     qrcode: {
       type: String,
-      default: 'http://118.178.143.116:91/bot/qrimg/6c114193af67c50a8a077d28795153ebbd89fa57f9823c4347c6b528e2932dee5fdf3d808a20a24c528dfeddea7d875f4424070fe88a46cb3857a200f78072a0'
-    },
-    show: {
-      type: Boolean,
-      default: false
+      default: '1.png'
     },
     expireTime: {
       type: Number,
-      default: null
+      default: 100
     },
   },
   data() {
     return {
-      _expireTime: null,
+      expire: null,
       timer: null
     }
   },
@@ -50,17 +46,15 @@ export default {
     },
   },
   mounted() {
-    this._expireTime = this.expireTime
-    this.timer = setInterval(() => {
-      if (this._expireTime) {
-        this._expireTime -= 1
+    this.expire = this.expireTime
+    let timer = setInterval(() => {
+      if (this.expire) {
+        this.expire -= 1
       } else {
+        clearInterval(timer)
         this.close()
       }
     }, 1000)
-  },
-  beforeDestroy() {
-    clearInterval(this.timer)
   }
 }
 </script>

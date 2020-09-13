@@ -39,27 +39,19 @@
         </div>
       </div>
     </div>
-    <wxQRCode :name="name" :show="popupShow" :qrcode="qrcode" @close="popupShow = false"></wxQRCode>
   </div>
 </template>
 
 <script>
   import cardApi from "@/api/card";
-  import wxQRCode from "@/components/wxQRCode";
   import commonApi from "@/api/common";
 
   export default {
     name: 'bindCode',
-    components: {
-      wxQRCode,
-    },
     data() {
       return {
         code: '',
-        popupShow: false,
         workId: '',
-        name: '',
-        qrcode: '',
         listUserId: '',
         type: ''
       }
@@ -100,16 +92,21 @@
           this.$toast('请输入激活码')
           return
         }
-        cardApi.active({
-          card: this.code,
-          userId: this.listUserId ? this.listUserId :this.userId
-        }).then(res => {
+
           this.$toast('新增激活码成功')
-          this.workId = res.id
-          this.name = res.wx_nick_name
-          this.getWxQrcode()
-          console.log(res);
-        })
+          // this.workId = res.id
+          this.$router.push({path: '/BindQRCode', query: {id: 6}})
+
+        // cardApi.active({
+        //   card: this.code,
+        //   userId: this.listUserId ? this.listUserId :this.userId
+        // }).then(res => {
+        //   this.$toast('新增激活码成功')
+        //   this.workId = res.id
+        //   this.$router.push({path: '/BindQRCode', query: {id: res.id}})
+        //   // this.getWxQrcode()
+        //   console.log(res);
+        // })
       },
     },
     mounted() {

@@ -3,8 +3,7 @@
     <div class="Navigation">
       <div class="Navigation_title">
         <span @click="$router.back(-1)">
-          <img src="http://47.114.57.144:90/cdn_wf/static/img/fh.png"
-               class="Return"></span>
+          <img src="http://47.114.57.144:90/cdn_wf/static/img/fh.png" class="Return"></span>
         <i>绑定微信</i></div>
     </div>
     <div class="box_">
@@ -15,7 +14,10 @@
               <div class="qrdiv">
                 <div class="titl">请用您的手机打开微信扫描此二维码</div>
                 <div class="titl">二维码{{expire}}秒到期</div> <!---->
-                <div class="cz">重置二维码</div>
+                <div class="qr">
+                  <img src="1.png" />
+                </div>
+<!--                <div class="cz">重置二维码</div>-->
               </div>
             </div>
             <div class="text">
@@ -32,15 +34,14 @@
 
 <script>
   import cardApi from "@/api/card";
+  import commonApi from "@/api/common";
 
   export default {
     name: 'bindCode',
     data() {
       return {
-        expire: '',
-        code: '',
-        popupShow: false,
-        workId: '',
+        expire: 100,
+        listUserId: '',
         name: '',
         qrcode: ''
       }
@@ -52,29 +53,60 @@
     },
     methods: {
       getWxQrcode() {
-        this.popupShow = true
-      },
-      checkCode() {
-        if (!this.code) {
-          this.$toast('请输入激活码')
-          return
-        }
-        cardApi.active({
-          card: this.code,
-          userId: this.userId
+        this.$toast.loading({
+          message: "获取二维码中，请稍后...",
+          forbidClick: true
+        })
+        this.handleExpire()
+
+        commonApi.getWxQrcode({
+          workId: this.listUserId
         }).then(res => {
-          this.$toast('新增激活码成功')
-          this.workId = res.wx_local_id
-          this.getWxQrcode()
-          console.log(res);
+          this.qrcode = res.QrUrl
+          this.uuid = res.Uuid
+          this.checkWxScanLogin()
         })
       },
-      next() {
-
+      handleExpire(){
+        let timer = setInterval(() => {
+          this.expire -= 1
+          if (!this.expire) {
+            clearInterval(timer)
+            this.$toast('二维码过期')
+            this.$router.push('/')
+          }
+        }, 1000)
       },
-      pre() {
+      checkWxScanLogin(){
+        let i = 0
+        let timer = setInterval(() => {
+          i++
+          if (i === 1) {
+            clearInterval(timer)
+            this.$toast.success('扫码成功')
+            setTimeout(() => {
+              this.$router.push('/')
+            }, 300)
+          }
+        }, 5 * 1000)
 
-      }
+
+        // let timer = setInterval(() => {
+        //   commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
+        //     clearInterval(timer)
+        //     this.$toast('扫码成功')
+        //     this.$router.push('/')
+        //   })
+        // }, 5 * 1000)
+      },
+    },
+    mounted() {
+      const { id } = this.$route.query
+      this.listUserId = id
+
+      this.handleExpire()
+      this.checkWxScanLogin()
+      // this.getWxQrcode()
     },
   }
 </script>

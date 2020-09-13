@@ -8,7 +8,7 @@
         </div>
         <ul class="home_table">
           <li class="homepath">产品信息</li>
-          <li class="">功能设置</li>
+<!--          <li class="">功能设置</li>-->
         </ul>
       </div>
       <div class="wxManage1 jm">
@@ -27,63 +27,30 @@
               <div class="HOmessage">
                 <img v-if="item.wx_local_id" :src="item.wx_small_head" alt="">
                 <van-icon size="0.5rem" @click="toScan(item)" name="add-o" v-else />
-                <div class="right-content" v-if="item.wx_local_id">
-                  <div>{{item.wx_nick_name}}</div>
-                  <div class="homesz">
-                    <div style="margin-right: 10px">
-                      微信状态：<i :class="wxStatusColor(item.wx_status)">{{wxStatus(item.wx_status)}}</i>
+                <div class="df right-content" v-if="item.wx_local_id">
+                  <div class="right-content-item" >
+                    <div>{{item.wx_nick_name}}</div>
+                    <div class="homesz">
+                      <div style="margin-right: 10px">
+                        微信状态：<i :class="wxStatusColor(item.wx_status)">{{wxStatus(item.wx_status)}}</i>
+                      </div>
+                      <!--                    <VanCheckbox :value="true" @change="changeDefault" checked-color="#07c160" class="checkbox">-->
+                      <!--                      设置为默认账号-->
+                      <!--                    </VanCheckbox>-->
+<!--                      <img src="http://47.114.57.144:90/cdn_wf/static/img/xq.png" alt="">-->
                     </div>
-<!--                    <VanCheckbox :value="true" @change="changeDefault" checked-color="#07c160" class="checkbox">-->
-<!--                      设置为默认账号-->
-<!--                    </VanCheckbox>-->
-                    <img src="http://47.114.57.144:90/cdn_wf/static/img/xq.png" alt="">
+                  </div>
+                  <div class="right-content-item">
+                    <div>{{getCardTypeText(item.card_type)}}: {{item.card_code}}</div>
                   </div>
                 </div>
-              </div>
-              <div class="HOmessage" style="display: none;">
-                <img src="http://47.114.57.144:90/cdn_wf/static/img/adduser.png" alt="" style="border: 1px solid rgb(204, 204, 204);">
               </div>
             </div>
           </li>
           <div class="addCAT" @click="addCAT">新增激活码</div>
-        </ul> <!---->
-        <div class="Sign" style="display: none;">
-          <div class="signdiv">
-            <div class="van-nav-bar van-hairline--bottom">
-              <div class="van-nav-bar__left"><img src="http://47.114.57.144:90/cdn_wf/static/img/left_icon.png"
-                                                  class="Return" style="display: none;"><img
-                  src="http://47.114.57.144:90/cdn_wf/static/img/left_icon.png" class="Return"></div>
-              <div class="van-nav-bar__title van-ellipsis">绑定微信</div>
-              <div class="van-nav-bar__right"><span style="font-size: 0.2rem;">扫码绑定</span></div>
-            </div>
-            <div class="inputBox">
-              <div>
-                <div class="input_"><input type="text" maxlength="50" placeholder="请输入微信账号"></div>
-                <div class="input_"><input type="password" maxlength="16" placeholder="请输入微信密码"></div>
-                <div class="register">立即登录</div>
-              </div>
-              <div style="display: none;">
-                <div class="input_"><input type="text" maxlength="11" placeholder="请输入手机号码"></div>
-                <div class="input_"><input type="text" maxlength="6" placeholder="请输入短信验证码"
-                                           style="width: 67%; float: left;">
-                  <div class="short">获取验证码</div>
-                </div>
-                <div class="register">立即登录</div>
-                <div class="register" style="background: rgb(25, 192, 255);">切换账号绑定</div>
-              </div>
-              <div class="tips">
-                小提示：
-                <p>首次登录需输入账号密码或短信绑定，否则会出现数据异常的情况， 您的密码会通过MD5加密方式进行传输，请放心使用。</p>
-                <p style="display: none;">如产品使用异常，请尝试输入账号密码或短信登录， 您的密码会通过MD5加密方式进行传输，请放心使用。</p></div>
-            </div>
-          </div>
-          <div class="verification" style="display: none;">
-            <iframe width="95%" height="350" src="" frameborder="0" style="background: rgb(255, 255, 255);"></iframe>
-            <div class="confirm">
-              <div>我已点击确认</div>
-            </div>
-          </div>
-        </div>
+        </ul>
+        <wxQRCode :name="name" v-if="popupShow" :qrcode="qrcode" :expireTime="100"
+                  @close="close"></wxQRCode>
       </div>
     </div>
   </div>
@@ -91,14 +58,21 @@
 
 <script>
   import commonApi from "@/api/common";
-  import { wxStatusMap } from "@/utils/enum";
+  import { cardMap } from "@/utils/enum";
   import dayjs from 'dayjs'
+  import wxQRCode from "@/components/wxQRCode";
 
   export default {
     name: 'home',
+    components: { wxQRCode },
     data() {
       return {
-        list: []
+        list: [],
+        popupShow: false,
+        name: '',
+        qrcode: '',
+        uuid: '',
+        timer: null
       }
     },
     filters: {
@@ -115,18 +89,20 @@
       }
     },
     methods: {
+      getCardTypeText(val){
+        return cardMap[val]
+      },
       renewal(item){
-        return dayjs().isBefore(dayjs(item.expire_time))
+        return dayjs().isAfter(dayjs(item.expire_time))
       },
       scan(item){
-        return dayjs().isAfter(dayjs(item.expire_time)) &&
-          (!item.wx_status || ![-1, 0, 3].includes(item.wx_status))
+        return dayjs().isBefore(dayjs(item.expire_time)) && [-1, 0, 3, null].includes(item.wx_status)
       },
       restart1(item){
-        return dayjs().isAfter(dayjs(item.expire_time)) && item.wx_status === 4
+        return dayjs().isBefore(dayjs(item.expire_time)) && item.wx_status === 4
       },
       restart2(item){
-        return dayjs().isAfter(dayjs(item.expire_time)) && item.wx_status === 2
+        return dayjs().isBefore(dayjs(item.expire_time)) && item.wx_status === 2
       },
       wxStatus(val){
         if (val === 2) {
@@ -144,14 +120,58 @@
       toRenewal(item){
         this.$router.push({path: '/bindCode', query: {id: item.user_id, type: 'renewal'}})
       },
+      checkWxScanLogin(){
+        let i = 0
+        this.timer = setInterval(() => {
+          i++
+          if (i === 1) {
+            clearInterval(this.timer)
+            this.$toast.success('扫码成功')
+            this.popupShow = false
+            this.getList()
+          }
+        }, 5 * 1000)
+        // let timer = setInterval(() => {
+        //   commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
+        //     clearInterval(timer)
+        //     this.$toast('扫码成功')
+        //     this.popupShow = false
+        //     this.getList()
+        //   })
+        // }, 5 * 1000)
+      },
+      getWxQrcode(item) {
+        const loading = this.$toast.loading({
+          message: "获取二维码中，请稍后...",
+          forbidClick: true
+        })
+
+        this.popupShow = true
+        this.name = item.wx_nick_name
+        this.qrcode = '1.png'
+        loading.close()
+        this.checkWxScanLogin()
+
+
+        // commonApi.getWxQrcode({
+        //   workId: item.user_id
+        // }).then(res => {
+        //   this.popupShow = true
+        //   this.qrcode = res.QrUrl
+        //   this.uuid = res.Uuid
+        //   this.checkWxScanLogin()
+        // })
+      },
       toScan(item){
-        this.$router.push({path: '/bindCode', query: {id: item.user_id}})
+        this.getWxQrcode(item)
+        // this.$router.push({path: '/BindQRCode', query: {id: item.user_id}})
       },
       toRestart1(item){
         commonApi.restart1({
           wxId: item.wx_user
         }).then(res => {
           this.$toast('唤醒登录成功')
+          this.getList()
         })
       },
       toRestart2(item){
@@ -159,6 +179,7 @@
           wxId: item.wx_user
         }).then(res => {
           this.$toast('强制重启成功')
+          this.getList()
         })
       },
       signOut() {
@@ -168,26 +189,32 @@
       addCAT() {
         this.$router.push('/bindCode')
       },
-      getList() {
-        const loading = this.$toast.loading({
-          duration: 0,
-          message: "获取数据中，请稍后...",
-          forbidClick: true
-        })
+      getList(isFirst) {
+        if (isFirst) {
+          this.$toast.loading({
+            duration: 0,
+            message: "获取数据中，请稍后...",
+            forbidClick: true
+          })
+        }
         commonApi.getWork({
           userId: this.userId
         }).then(res => {
           this.list = res || []
         }).finally(() => {
-          loading.close()
+          this.$toast.clear()
         })
       },
       changeDefault (){
 
       },
+      close (){
+        this.popupShow = false
+        clearInterval(this.timer)
+      },
     },
     mounted() {
-      this.getList()
+      this.getList(true)
     },
   }
 </script>
@@ -242,7 +269,7 @@
   }
 
   .home_table li {
-    width: 50%;
+    width: 100%;
     float: left;
     color: #999;
     background: #f2f2f2
@@ -561,8 +588,15 @@
 
   .right-content{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     width: 80%;
+    align-items: center;
+  }
+
+  .right-content-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
   }
 
@@ -1119,22 +1153,6 @@
     width: 100%;
     height: 2rem;
     position: relative
-  }
-
-  .home_table {
-    width: 100%;
-    height: .9rem;
-    line-height: .9rem;
-    font-size: .34rem;
-    border-radius: .4rem .4rem 0 0;
-    overflow: hidden
-  }
-
-  .home_table li {
-    width: 50%;
-    float: left;
-    color: #999;
-    background: #f2f2f2
   }
 
   .home_table .homepath {

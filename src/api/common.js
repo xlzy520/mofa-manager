@@ -13,10 +13,10 @@ export default {
     return fetch(`/work/renewal?card=${card}&workId=${workId}`)
   },
   restart1(data) {
-    return fetch('/wx/restart1', data)
+    return fetch('/wx/restart1/'+data.wxId, data)
   },
   restart2(data) {
-    return fetch('/wx/restart2', data)
+    return fetch('/wx/restart2/'+data.wxId, data)
   },
   checkWxScanLogin(data) {
     return fetch('/wx/login/checklogin/werw', data)
