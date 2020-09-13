@@ -25,10 +25,10 @@
                 </div>
               </div>
               <div class="HOmessage">
-                <img v-if="item.wx_local_id" :src="item.wx_small_head" alt="">
+                <img v-if="item.wx_small_head" :src="item.wx_small_head" alt="">
                 <van-icon size="0.5rem" @click="toScan(item)" name="add-o" v-else />
-                <div class="df right-content" v-if="item.wx_local_id">
-                  <div class="right-content-item" >
+                <div class="df right-content">
+                  <div class="right-content-item" v-if="item.wx_user" >
                     <div>{{item.wx_nick_name}}</div>
                     <div class="homesz">
                       <div style="margin-right: 10px">
