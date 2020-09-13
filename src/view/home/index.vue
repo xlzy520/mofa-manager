@@ -13,7 +13,7 @@
       </div>
       <div class="wxManage1 jm">
         <ul class="list_user">
-          <li index="0" style="height: auto;" v-for="item in list" :key="item.id">
+          <li v-for="item in list" :key="item.id">
             <div class="center">
               <div class="operation">
                 <div>到期时间：{{item.expire_time | formatDate}}</div>
@@ -149,11 +149,17 @@
       },
       toRestart1(item){
         commonApi.restart1({
-
+          wxId: item.wx_user
+        }).then(res => {
+          this.$toast('唤醒登录成功')
         })
       },
       toRestart2(item){
-        this.$router.push({path: '/bindCode', query: {id: item.user_id}})
+        commonApi.restart2({
+          wxId: item.wx_user
+        }).then(res => {
+          this.$toast('强制重启成功')
+        })
       },
       signOut() {
         localStorage.clear()
@@ -163,10 +169,17 @@
         this.$router.push('/bindCode')
       },
       getList() {
+        const loading = this.$toast.loading({
+          duration: 0,
+          message: "获取数据中，请稍后...",
+          forbidClick: true
+        })
         commonApi.getWork({
           userId: this.userId
         }).then(res => {
           this.list = res || []
+        }).finally(() => {
+          loading.close()
         })
       },
       changeDefault (){
