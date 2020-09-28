@@ -113,14 +113,23 @@
           commonApi.getWork({
             userId: res.UserInfo.id
           }).then(res1 => {
-            if (!res1.length) {
-              this.$router.push('/bindCode')
+            if (this.isPasswordLogin) {
+              if (!res1.length) {
+                this.$router.push('/bindCode')
+              } else {
+                this.$router.push('/')
+              }
             } else {
-              this.$router.push('/')
+              if (!res1.length) {
+                this.$router.push('/bindQrCode?id='+res.UserInfo.id)
+              } else {
+                this.$router.push('/')
+              }
             }
+
           })
         }).finally(() => {
-          loading.close()
+          // loading.close()
         })
       }
     },

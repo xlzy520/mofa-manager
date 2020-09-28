@@ -19,6 +19,6 @@ export default {
     return fetch('/wx/restart2/'+data.wxId, data)
   },
   checkWxScanLogin(data) {
-    return fetch('/wx/login/checklogin/werw', data)
+    return fetch('/wx/login/checklogin/'+data.uuid, data)
   },
 }

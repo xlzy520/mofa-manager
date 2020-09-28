@@ -93,20 +93,20 @@
           return
         }
 
-          this.$toast('新增激活码成功')
+          // this.$toast('新增激活码成功')
           // this.workId = res.id
-          this.$router.push({path: '/BindQRCode', query: {id: 6}})
+          // this.$router.push({path: '/BindQRCode', query: {id: 6}})
 
-        // cardApi.active({
-        //   card: this.code,
-        //   userId: this.listUserId ? this.listUserId :this.userId
-        // }).then(res => {
-        //   this.$toast('新增激活码成功')
-        //   this.workId = res.id
-        //   this.$router.push({path: '/BindQRCode', query: {id: res.id}})
-        //   // this.getWxQrcode()
-        //   console.log(res);
-        // })
+        cardApi.active({
+          card: this.code,
+          userId: this.listUserId ? this.listUserId :this.userId
+        }).then(res => {
+          this.$toast('新增激活码成功')
+          this.workId = res.id
+          this.$router.push({path: '/BindQRCode', query: {id: res.id}})
+          // this.getWxQrcode()
+          console.log(res);
+        })
       },
     },
     mounted() {

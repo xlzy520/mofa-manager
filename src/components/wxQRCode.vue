@@ -1,6 +1,6 @@
 <template>
   <van-popup class="qr_div" :value="true" @close="close">
-    <img src="http://47.114.57.144:90/cdn_wf/static/img/colse1.png" class="clorsICON" @click="close">
+    <img src="colse1.png" class="clorsICON" @click="close">
     <div class="QRdiv">
       <div style="padding-bottom: 0.5rem;">二维码到期时间:{{expire}} 秒</div>
       <div index="0" class="qrLIST">

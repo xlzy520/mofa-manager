@@ -12,10 +12,12 @@ baseRequest.interceptors.response.use(
   response => {
     const res = response.data
     if (!res.Success) {
-      Toast({
-        message: res.Message,
-        duration: 2000
-      })
+      if (res.Message !== '请检查uuid是否正确！') {
+        Toast({
+          message: res.Message,
+          duration: 2000
+        })
+      }
       // token已过期
       if (["45000", '45001'].includes(res.Code)) {
         localStorage.clear()

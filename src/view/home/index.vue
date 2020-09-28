@@ -121,24 +121,17 @@
         this.$router.push({path: '/bindCode', query: {id: item.user_id, type: 'renewal'}})
       },
       checkWxScanLogin(){
-        let i = 0
         this.timer = setInterval(() => {
-          i++
-          if (i === 1) {
-            clearInterval(this.timer)
-            this.$toast.success('扫码成功')
-            this.popupShow = false
-            this.getList()
-          }
+          commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
+            console.log(4);
+            if (res) {
+              this.clearTimer()
+              this.$toast('扫码成功')
+              this.popupShow = false
+              this.getList()
+            }
+          })
         }, 5 * 1000)
-        // let timer = setInterval(() => {
-        //   commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
-        //     clearInterval(timer)
-        //     this.$toast('扫码成功')
-        //     this.popupShow = false
-        //     this.getList()
-        //   })
-        // }, 5 * 1000)
       },
       getWxQrcode(item) {
         const loading = this.$toast.loading({
@@ -146,21 +139,17 @@
           forbidClick: true
         })
 
-        this.popupShow = true
-        this.name = item.wx_nick_name
-        this.qrcode = '1.png'
-        loading.close()
-        this.checkWxScanLogin()
-
-
-        // commonApi.getWxQrcode({
-        //   workId: item.user_id
-        // }).then(res => {
-        //   this.popupShow = true
-        //   this.qrcode = res.QrUrl
-        //   this.uuid = res.Uuid
-        //   this.checkWxScanLogin()
-        // })
+        commonApi.getWxQrcode({
+          workId: item.id
+        }).then(res => {
+          this.popupShow = true
+          this.qrcode = res.QrUrl2
+          this.uuid = res.Uuid
+          // this.name = item.wx_nick_name
+          this.checkWxScanLogin()
+        }).finally(() => {
+          loading.close()
+        })
       },
       toScan(item){
         this.getWxQrcode(item)
@@ -208,14 +197,21 @@
       changeDefault (){
 
       },
+      clearTimer(){
+        clearInterval(this.timer)
+        this.timer = null
+      },
       close (){
         this.popupShow = false
-        clearInterval(this.timer)
+        this.clearTimer()
       },
     },
     mounted() {
       this.getList(true)
     },
+    beforeDestroy() {
+      this.clearTimer()
+    }
   }
 </script>
 

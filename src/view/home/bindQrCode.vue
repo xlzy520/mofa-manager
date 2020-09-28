@@ -3,7 +3,7 @@
     <div class="Navigation">
       <div class="Navigation_title">
         <span @click="$router.back(-1)">
-          <img src="http://47.114.57.144:90/cdn_wf/static/img/fh.png" class="Return"></span>
+          <img src="fh.png" class="Return"></span>
         <i>绑定微信</i></div>
     </div>
     <div class="box_">
@@ -15,7 +15,7 @@
                 <div class="titl">请用您的手机打开微信扫描此二维码</div>
                 <div class="titl">二维码{{expire}}秒到期</div> <!---->
                 <div class="qr">
-                  <img src="1.png" />
+                  <img :src="qrcode" />
                 </div>
 <!--                <div class="cz">重置二维码</div>-->
               </div>
@@ -43,7 +43,9 @@
         expire: 100,
         listUserId: '',
         name: '',
-        qrcode: ''
+        qrcode: '',
+        timer: null,
+        checkLoginTimer: null
       }
     },
     computed: {
@@ -60,54 +62,52 @@
         this.handleExpire()
 
         commonApi.getWxQrcode({
-          workId: this.listUserId
+          workId: Number(this.listUserId)
         }).then(res => {
-          this.qrcode = res.QrUrl
+          this.qrcode = res.QrUrl2
           this.uuid = res.Uuid
           this.checkWxScanLogin()
         })
       },
       handleExpire(){
-        let timer = setInterval(() => {
+        this.timer = setInterval(() => {
           this.expire -= 1
           if (!this.expire) {
-            clearInterval(timer)
+            this.clearTimer()
             this.$toast('二维码过期')
             this.$router.push('/')
           }
         }, 1000)
       },
+      clearTimer(){
+        clearInterval(this.timer)
+        this.timer = null
+      },
+      clearCheckLoginTimer(){
+        clearInterval(this.checkLoginTimer)
+        this.checkLoginTimer = null
+      },
       checkWxScanLogin(){
-        let i = 0
-        let timer = setInterval(() => {
-          i++
-          if (i === 1) {
-            clearInterval(timer)
-            this.$toast.success('扫码成功')
-            setTimeout(() => {
+        this.checkLoginTimer = setInterval(() => {
+          commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
+            if (res) {
+              this.clearCheckLoginTimer()
+              this.$toast('扫码成功')
               this.$router.push('/')
-            }, 300)
-          }
+            }
+          })
         }, 5 * 1000)
-
-
-        // let timer = setInterval(() => {
-        //   commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
-        //     clearInterval(timer)
-        //     this.$toast('扫码成功')
-        //     this.$router.push('/')
-        //   })
-        // }, 5 * 1000)
       },
     },
     mounted() {
       const { id } = this.$route.query
       this.listUserId = id
-
-      this.handleExpire()
-      this.checkWxScanLogin()
-      // this.getWxQrcode()
+      this.getWxQrcode()
     },
+    beforeDestroy() {
+      this.clearTimer()
+      this.clearCheckLoginTimer();
+    }
   }
 </script>
 
