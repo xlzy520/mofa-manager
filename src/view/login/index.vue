@@ -121,7 +121,7 @@
               }
             } else {
               if (!res1.length) {
-                this.$router.push('/bindQrCode?id='+res.UserInfo.id)
+                this.$router.push('/bindCode?id='+res.UserInfo.id)
               } else {
                 this.$router.push('/')
               }
