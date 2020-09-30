@@ -61,6 +61,7 @@
   import { cardMap } from "@/utils/enum";
   import dayjs from 'dayjs'
   import wxQRCode from "@/components/wxQRCode";
+  import {Dialog} from "vant";
 
   export default {
     name: 'home',
@@ -99,7 +100,7 @@
         return dayjs().isBefore(dayjs(item.expire_time)) && [-1, 0, 3, null].includes(item.wx_status)
       },
       restart1(item){
-        return dayjs().isBefore(dayjs(item.expire_time)) && item.wx_status === 4
+        return dayjs().isBefore(dayjs(item.expire_time)) && (item.wx_status === 4 || item.wx_status === 2)
       },
       restart2(item){
         return dayjs().isBefore(dayjs(item.expire_time)) && item.wx_status === 2
@@ -156,6 +157,11 @@
         // this.$router.push({path: '/BindQRCode', query: {id: item.user_id}})
       },
       toRestart1(item){
+        this.$toast.loading({
+          duration: 2000,
+          message: "已成功执行唤醒",
+          forbidClick: true
+        })
         commonApi.restart1({
           wxId: item.wx_user
         }).then(res => {
@@ -164,11 +170,21 @@
         })
       },
       toRestart2(item){
-        commonApi.restart2({
-          wxId: item.wx_user
-        }).then(res => {
-          this.$toast('强制重启成功')
-          this.getList()
+        Dialog.alert({
+          title: "提示",
+          message: '强制重启，准备跳转重新扫码。',
+          confirmButtonColor: '#3d80fc',
+        }).then(()=> {
+          commonApi.restart2({
+            wxId: item.wx_user
+          }).then(res => {
+            this.$toast('强制重启成功')
+            this.popupShow = true
+            this.qrcode = res.QrUrl2
+            this.uuid = res.Uuid
+            // this.name = item.wx_nick_name
+            this.checkWxScanLogin()
+          })
         })
       },
       signOut() {

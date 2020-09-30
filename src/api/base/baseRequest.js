@@ -5,7 +5,7 @@ import { router } from '@/router'
 const baseRequest = axios.create({
   baseURL: 'http://101.133.152.103:8091/vbiz/',
   withCredentials: true,
-  timeout: 20 * 1000,
+  timeout: 90 * 1000,
 })
 
 baseRequest.interceptors.response.use(
