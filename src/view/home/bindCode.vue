@@ -1,5 +1,5 @@
 <template>
-  <div class="pub router_box_ noCache">
+  <div class="pub router_box_">
     <div class="Navigation">
       <div class="Navigation_title">
         <span @click="$router.back(-1)">
