@@ -1,32 +1,37 @@
 <template>
-  <div class="pub router_box_">
-    <div class="Navigation">
-      <div class="Navigation_title">
+  <div class="reg bind router_box_ noCache">
+    <div class="center_div">
+      <div class="title">
         <span @click="$router.back(-1)">
-          <img src="fh.png" class="Return"></span>
-        <i>绑定微信</i></div>
-    </div>
-    <div class="box_">
-      <div class="box_top">
-        <div class="content">
-          <div class="modify">
-            <div class="binding">
-              <div class="qrdiv">
-                <div class="titl">请用您的手机打开微信扫描此二维码</div>
-                <div class="titl">二维码{{expire}}秒到期</div> <!---->
-                <div class="qr">
-                  <img :src="qrcode" />
+          <img src="fh.png" class="Return">
+        </span>
+        <i>绑定微信</i>
+      </div>
+      <div class="back_">
+        <div class="box_">
+          <div class="box_top">
+            <div class="content">
+              <div class="modify">
+                <div class="binding">
+                  <div class="qrdiv">
+                    <div class="titl">请用您的手机打开微信扫描此二维码</div>
+                    <div class="titl">二维码{{expire}}秒到期</div> <!---->
+                    <div class="qr">
+                      <img :src="qrcode" />
+                    </div>
+                    <!--                <div class="cz">重置二维码</div>-->
+                  </div>
                 </div>
-<!--                <div class="cz">重置二维码</div>-->
+                <div class="text">
+                  <i>小提示：</i>
+                  <i>本平台为虚拟IP登录，可能会存在风险提示</i>
+                  <i>如打开本页面扫描二维码，须用当前手机扫描。请用PC端打开本页面，再用手机进行扫描！</i>
+                </div>
               </div>
-            </div>
-            <div class="text">
-              <i>小提示：</i>
-              <i>本平台为虚拟IP登录，可能会存在风险提示</i>
-              <i>如打开本页面扫描二维码，须用当前手机扫描。请用PC端打开本页面，再用手机进行扫描！</i>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -112,64 +117,26 @@
 </script>
 
 <style lang="less" scoped>
-  .pub {
-    height: 100%;
-    background-color: #fff
-  }
 
-  .pub img {
-    margin: 0
+  .bind{
+    .center_div{
+      padding-top: 0;
+    }
+    .title{
+      padding-bottom: 0;
+      height: 2rem;
+      line-height: 2rem;
+    }
+    .back_ > div{
+      width: 100% !important;
+    }
   }
-
-  .pub .van-dropdown-menu__item {
-    min-width: 100%
-  }
-
-  .pub .van-popup {
-    height: auto
-  }
-
-  .pub .Return1 img {
-    width: .2rem;
-    height: .35rem;
-    position: relative;
-    top: .05rem;
-    margin-right: .13rem
-  }
-
-  .pub .titles {
-    font-size: .58rem;
-    color: #3c3635;
-    padding-bottom: .7rem;
-    font-weight: 600;
-    position: relative;
-    display: inline-block;
-    float: left;
-    margin-left: .58rem;
-    margin-top: 1rem
-  }
-
-  .pub .titles i {
-    position: relative;
-    z-index: 2
-  }
-
-  .pub .titles span {
-    background: #50e54e;
-    width: 100%;
-    height: .15rem;
-    position: absolute;
-    left: 0;
-    top: .58rem;
-    z-index: 1
-  }
-
-  .pub .content {
+  .reg .content {
     width: 100%;
     height: auto
   }
 
-  .pub .content .cz {
+  .reg .content .cz {
     font-size: .28rem;
     color: #555;
     border: 1px solid #ebebeb;
@@ -183,70 +150,20 @@
     color: #fff
   }
 
-  .pub .content .Account {
-    width: 100%;
-    height: 2.04rem;
-    background: #fff
-  }
-
-  .pub .content .Account .center_box {
-    width: 90%;
-    height: 1.3rem;
-    margin: 0 auto;
-    position: relative;
-    top: .4rem
-  }
-
-  .pub .content .Account .center_box .img_icon {
-    width: 1.3rem;
-    height: 1.3rem;
-    border-radius: 50%;
-    overflow: hidden;
-    float: left
-  }
-
-  .pub .content .Account .center_box .img_icon img {
-    width: 100%;
-    height: 100%
-  }
-
-  .pub .content .Account .center_box .information {
-    float: left;
-    width: 70%;
-    text-align: left;
-    margin-left: .2rem
-  }
-
-  .pub .content .Account .center_box .information .name {
-    font-size: .3rem;
-    color: #232323
-  }
-
-  .pub .content .Account .center_box .information .Effective {
-    font-size: .22rem;
-    color: #888;
-    padding: .1rem 0
-  }
-
-  .pub .content .Account .center_box .information .Edition {
-    color: #f60;
-    font-size: .22rem
-  }
-
-  .pub .content .modify {
+  .reg .content .modify {
     width: 100%;
     height: auto;
     overflow: hidden;
     background: #fff
   }
 
-  .pub .content .modify .input_div {
+  .reg .content .modify .input_div {
     width: 60%;
     height: auto;
     margin: .32rem auto .28rem
   }
 
-  .pub .content .modify .input_div input {
+  .reg .content .modify .input_div input {
     width: 100%;
     height: .6rem;
     border-radius: .05rem;
@@ -257,7 +174,7 @@
     display: block
   }
 
-  .pub .content .modify .input_div .Determine {
+  .reg .content .modify .input_div .Determine {
     width: 2.2rem;
     height: .8rem;
     border-radius: .05rem;
@@ -269,7 +186,7 @@
     background-color: #3d80fc
   }
 
-  .pub .content .modify .binding {
+  .reg .content .modify .binding {
     width: 80%;
     height: auto;
     margin: .5rem auto;
@@ -278,11 +195,11 @@
     padding-bottom: .2rem
   }
 
-  .pub .content .modify .dispose {
+  .reg .content .modify .dispose {
     padding: 1rem 0
   }
 
-  .pub .content .modify .dispose div {
+  .reg .content .modify .dispose div {
     width: 4rem;
     height: .6rem;
     line-height: .6rem;
@@ -292,7 +209,7 @@
     margin: 0 auto .5rem
   }
 
-  .pub .content .modify .text {
+  .reg .content .modify .text {
     color: #666;
     width: 100%;
     height: auto;
@@ -301,7 +218,7 @@
     background: #fff
   }
 
-  .pub .content .modify .text i {
+  .reg .content .modify .text i {
     width: 75%;
     margin: 0 auto;
     display: block;
@@ -311,19 +228,19 @@
     color: #999
   }
 
-  .pub .content .modify .text i .spans {
+  .reg .content .modify .text i .spans {
     display: block;
     float: left
   }
 
-  .pub .content .modify .text i .span {
+  .reg .content .modify .text i .span {
     width: 90%;
     text-align: left;
     display: block;
     float: left
   }
 
-  .pub .content .modify .text .start {
+  .reg .content .modify .text .start {
     background: #83ca4e;
     font-size: .26rem;
     color: #fff;
@@ -335,35 +252,35 @@
     margin: .5rem auto
   }
 
-  .pub .content .modify .qrdiv {
+  .reg .content .modify .qrdiv {
     text-align: center;
     color: #666;
     font-size: .28rem
   }
 
-  .pub .content .modify .qrdiv .titl {
+  .reg .content .modify .qrdiv .titl {
     padding-bottom: .3rem
   }
 
-  .pub .content .modify .qrdiv .qr {
+  .reg .content .modify .qrdiv .qr {
     width: 2.97rem;
     height: 2.97rem;
     margin: 0 auto
   }
 
-  .pub .content .modify .qrdiv .qr img {
+  .reg .content .modify .qrdiv .qr img {
     width: 100%;
     height: 100%
   }
 
-  .pub .content .modify .activation .Version, .pub .content .modify .upgrade .Version {
+  .reg .content .modify .activation .Version, .reg .content .modify .upgrade .Version {
     width: 100%;
     height: 3.2rem;
     background: #fff;
     padding-bottom: .1rem
   }
 
-  .pub .content .modify .activation .Version .center, .pub .content .modify .upgrade .Version .center {
+  .reg .content .modify .activation .Version .center, .reg .content .modify .upgrade .Version .center {
     width: 90%;
     height: 3rem;
     margin: 0 auto;
@@ -375,7 +292,7 @@
     overflow: hidden
   }
 
-  .pub .content .modify .activation .Version .center .title, .pub .content .modify .upgrade .Version .center .title {
+  .reg .content .modify .activation .Version .center .title, .reg .content .modify .upgrade .Version .center .title {
     width: .7rem;
     height: 100%;
     background: #ff9249;
@@ -388,7 +305,7 @@
     float: left
   }
 
-  .pub .content .modify .activation .Version .center .suggest, .pub .content .modify .upgrade .Version .center .suggest {
+  .reg .content .modify .activation .Version .center .suggest, .reg .content .modify .upgrade .Version .center .suggest {
     width: 85%;
     height: 100%;
     font-size: .24rem;
@@ -397,11 +314,11 @@
     color: #666
   }
 
-  .pub .content .modify .activation .Version .center .suggest .txt, .pub .content .modify .upgrade .Version .center .suggest .txt {
+  .reg .content .modify .activation .Version .center .suggest .txt, .reg .content .modify .upgrade .Version .center .suggest .txt {
     margin-left: .26rem
   }
 
-  .pub .content .modify .activation .expansion, .pub .content .modify .upgrade .expansion {
+  .reg .content .modify .activation .expansion, .reg .content .modify .upgrade .expansion {
     width: 100%;
     height: auto;
     overflow: hidden;
@@ -412,7 +329,7 @@
     background-color: #fff
   }
 
-  .pub .content .modify .activation .expansion .centCode, .pub .content .modify .upgrade .expansion .centCode {
+  .reg .content .modify .activation .expansion .centCode, .reg .content .modify .upgrade .expansion .centCode {
     width: 80%;
     font-size: .28rem;
     text-align: center;
@@ -421,7 +338,7 @@
     padding: .1rem 0
   }
 
-  .pub .content .modify .activation .expansion .promotion, .pub .content .modify .upgrade .expansion .promotion {
+  .reg .content .modify .activation .expansion .promotion, .reg .content .modify .upgrade .expansion .promotion {
     width: 6rem;
     height: .8rem;
     line-height: .8rem;
@@ -433,7 +350,7 @@
     border-radius: .1rem
   }
 
-  .pub .content .modify .activation .expansion .Prev, .pub .content .modify .upgrade .expansion .Prev {
+  .reg .content .modify .activation .expansion .Prev, .reg .content .modify .upgrade .expansion .Prev {
     width: 6rem;
     height: .8rem;
     line-height: .8rem;
@@ -446,7 +363,7 @@
     border-radius: .1rem
   }
 
-  .pub .content .modify .activation .expansion .center_input, .pub .content .modify .upgrade .expansion .center_input {
+  .reg .content .modify .activation .expansion .center_input, .reg .content .modify .upgrade .expansion .center_input {
     width: 6rem;
     height: auto;
     border-bottom: 1px solid #c2c2c2;
@@ -457,7 +374,7 @@
     position: relative
   }
 
-  .pub .content .modify .activation .expansion .center_input input, .pub .content .modify .upgrade .expansion .center_input input {
+  .reg .content .modify .activation .expansion .center_input input, .reg .content .modify .upgrade .expansion .center_input input {
     width: 100%;
     height: .6rem;
     border: none;
@@ -466,21 +383,21 @@
     margin-top: .2rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu {
     width: 100%;
     height: 100%;
     color: #7fafff
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-ellipsis, .pub .content .modify .upgrade .expansion .center_input .van-ellipsis {
+  .reg .content .modify .activation .expansion .center_input .van-ellipsis, .reg .content .modify .upgrade .expansion .center_input .van-ellipsis {
     color: #7fafff
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu__title, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu__title, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title {
     font-size: .24rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .xia, .pub .content .modify .upgrade .expansion .center_input .xia {
+  .reg .content .modify .activation .expansion .center_input .xia, .reg .content .modify .upgrade .expansion .center_input .xia {
     position: absolute;
     right: .16rem;
     top: 0;
@@ -490,119 +407,30 @@
     height: .12rem
   }
 
-  .pub .content .modify .activation .expansion .center_input #xz, .pub .content .modify .upgrade .expansion .center_input #xz {
+  .reg .content .modify .activation .expansion .center_input #xz, .reg .content .modify .upgrade .expansion .center_input #xz {
     transform: rotate(180deg)
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu__title:after, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title:after {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu__title:after, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title:after {
     display: none
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-item--down, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-item--down {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-item--down, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-item--down {
     width: 5rem;
     margin: auto;
     margin-top: .1rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-overlay, .pub .content .modify .upgrade .expansion .center_input .van-overlay {
+  .reg .content .modify .activation .expansion .center_input .van-overlay, .reg .content .modify .upgrade .expansion .center_input .van-overlay {
     background: none
   }
 
-  .pub .content .modify .activation .expansion .center_input > div, .pub .content .modify .upgrade .expansion .center_input > div {
+  .reg .content .modify .activation .expansion .center_input > div, .reg .content .modify .upgrade .expansion .center_input > div {
     color: #1b1b1b;
     font-size: .32rem;
     padding-bottom: .1rem;
     font-weight: 400;
     text-align: left
-  }
-
-  .pub .Graphical {
-    width: 100%;
-    height: .6rem;
-    line-height: .6rem;
-    margin: .5rem 0 .6rem
-  }
-
-  .pub .Graphical div {
-    height: .6rem;
-    border: 1px solid #a0a0a0;
-    font-size: .28rem;
-    color: #d2d2d2
-  }
-
-  .pub .Graphical .anTxt {
-    height: .5rem;
-    font-size: .26rem;
-    text-align: center;
-    line-height: .5rem;
-    margin-bottom: .2rem;
-    border: none;
-    color: #555
-  }
-
-  .pub .Graphical .left_input {
-    float: left;
-    width: 70%
-  }
-
-  .pub .Graphical .left_input input {
-    width: 100%;
-    height: 90%;
-    border: none;
-    display: block;
-    text-indent: .2rem
-  }
-
-  .pub .Graphical .right_img {
-    float: right;
-    width: 25%
-  }
-
-  .pub .Graphical .right_img img {
-    width: 100%;
-    height: 100%
-  }
-
-  .pub .Navigation {
-    height: 2rem;
-    background-image: url("/login_bg.png") no-repeat;
-    background-size: 100%;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    color: #fff;
-    font-size: .35rem
-  }
-
-  .pub .Navigation .Navigation_title {
-    width: 90%;
-    margin: 0 auto;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: left;
-    justify-content: left
-  }
-
-  .pub .Navigation .Navigation_title img {
-    width: .26rem;
-    height: .2rem;
-    position: relative;
-    margin-right: .13rem
-  }
-
-  .pub .Navigation .Navigation_title .bz_ {
-    width: 1.2rem;
-    height: .5rem;
-    line-height: .5rem;
-    border: 1px solid #fff;
-    font-size: .22rem;
-    margin-left: auto
   }
 
   .pub .box_ {

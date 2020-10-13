@@ -1,38 +1,40 @@
 <template>
-  <div class="pub router_box_">
-    <div class="Navigation">
-      <div class="Navigation_title">
+  <div class="reg bind router_box_ noCache">
+    <div class="center_div">
+      <div class="title">
         <span @click="$router.back(-1)">
-          <img src="http://47.114.57.144:90/cdn_wf/static/img/fh.png"
-               class="Return"></span>
+          <img src="fh.png" class="Return">
+        </span>
         <i>{{getTitle()}}</i></div>
-    </div>
-    <div class="box_">
-      <div class="box_top">
-        <div class="content">
-          <div class="modify">
-            <div class="activation">
-              <div class="expansion">
-                <div class="center_input" style="color: rgb(162, 159, 163); border-color: rgb(236, 236, 236);">
-                  <div>激活码</div>
-                  <input type="text" placeholder="请输入激活码" v-model="code"></div>
-                <div class="promotion" @click="checkCode">下一步</div>
-                <div class="promotion" style="margin-top: 0.37rem; display: none;">确认激活</div>
-              </div>
-              <div class="text">
-                <i style="text-align: center;">小提示：</i>
-                <i>
-                  <span class="spans">1、</span>
-                  <span class="span">扫码后需要同意相关授权，否则无法使用本站提供的所有功能！</span>
-                </i>
-                <i>
-                  <span class="spans">2、</span>
-                  <span class="span">同一个账号可绑定多个微信号，但需要增加新的激活码（每个激活码绑定一个微信号）</span>
-                </i>
-                <i>
-                  <span class="spans">3、</span>
-                  <span class="span">同一个账号可同时上线多个微信号，但需要设置一个微信号为主账号，主账号可使用产品内的所有功能（主账号可切换）</span>
-                </i>
+      <div class="back_">
+        <div class="box_">
+          <div class="box_top">
+            <div class="content">
+              <div class="modify">
+                <div class="activation">
+                  <div class="expansion">
+                    <div class="center_input" style="color: rgb(162, 159, 163); border-color: rgb(236, 236, 236);">
+                      <div>激活码</div>
+                      <input type="text" placeholder="请输入激活码" v-model="code"></div>
+                    <div class="promotion" @click="checkCode">下一步</div>
+                    <div class="promotion" style="margin-top: 0.37rem; display: none;">确认激活</div>
+                  </div>
+                  <div class="text">
+                    <i style="text-align: center;">小提示：</i>
+                    <i>
+                      <span class="spans">1、</span>
+                      <span class="span">扫码后需要同意相关授权，否则无法使用本站提供的所有功能！</span>
+                    </i>
+                    <i>
+                      <span class="spans">2、</span>
+                      <span class="span">同一个账号可绑定多个微信号，但需要增加新的激活码（每个激活码绑定一个微信号）</span>
+                    </i>
+                    <i>
+                      <span class="spans">3、</span>
+                      <span class="span">同一个账号可同时上线多个微信号，但需要设置一个微信号为主账号，主账号可使用产品内的所有功能（主账号可切换）</span>
+                    </i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -118,6 +120,22 @@
 </script>
 
 <style lang="less" scoped>
+  .bind{
+    .center_div{
+      padding-top: 0;
+    }
+    .title{
+      padding-bottom: 0;
+      height: 2rem;
+      line-height: 2rem;
+      text-indent: 0;
+      width: 90%;
+      margin: auto;
+    }
+    .back_ > div{
+      width: 100% !important;
+    }
+  }
   .pub {
     height: 100%;
     background-color: #fff
@@ -170,12 +188,12 @@
     z-index: 1
   }
 
-  .pub .content {
+  .reg .content {
     width: 100%;
     height: auto
   }
 
-  .pub .content .cz {
+  .reg .content .cz {
     font-size: .28rem;
     color: #555;
     border: 1px solid #ebebeb;
@@ -189,13 +207,13 @@
     color: #fff
   }
 
-  .pub .content .Account {
+  .reg .content .Account {
     width: 100%;
     height: 2.04rem;
     background: #fff
   }
 
-  .pub .content .Account .center_box {
+  .reg .content .Account .center_box {
     width: 90%;
     height: 1.3rem;
     margin: 0 auto;
@@ -203,7 +221,7 @@
     top: .4rem
   }
 
-  .pub .content .Account .center_box .img_icon {
+  .reg .content .Account .center_box .img_icon {
     width: 1.3rem;
     height: 1.3rem;
     border-radius: 50%;
@@ -211,48 +229,48 @@
     float: left
   }
 
-  .pub .content .Account .center_box .img_icon img {
+  .reg .content .Account .center_box .img_icon img {
     width: 100%;
     height: 100%
   }
 
-  .pub .content .Account .center_box .information {
+  .reg .content .Account .center_box .information {
     float: left;
     width: 70%;
     text-align: left;
     margin-left: .2rem
   }
 
-  .pub .content .Account .center_box .information .name {
+  .reg .content .Account .center_box .information .name {
     font-size: .3rem;
     color: #232323
   }
 
-  .pub .content .Account .center_box .information .Effective {
+  .reg .content .Account .center_box .information .Effective {
     font-size: .22rem;
     color: #888;
     padding: .1rem 0
   }
 
-  .pub .content .Account .center_box .information .Edition {
+  .reg .content .Account .center_box .information .Edition {
     color: #f60;
     font-size: .22rem
   }
 
-  .pub .content .modify {
+  .reg .content .modify {
     width: 100%;
     height: auto;
     overflow: hidden;
     background: #fff
   }
 
-  .pub .content .modify .input_div {
+  .reg .content .modify .input_div {
     width: 60%;
     height: auto;
     margin: .32rem auto .28rem
   }
 
-  .pub .content .modify .input_div input {
+  .reg .content .modify .input_div input {
     width: 100%;
     height: .6rem;
     border-radius: .05rem;
@@ -263,7 +281,7 @@
     display: block
   }
 
-  .pub .content .modify .input_div .Determine {
+  .reg .content .modify .input_div .Determine {
     width: 2.2rem;
     height: .8rem;
     border-radius: .05rem;
@@ -275,7 +293,7 @@
     background-color: #3d80fc
   }
 
-  .pub .content .modify .binding {
+  .reg .content .modify .binding {
     width: 80%;
     height: auto;
     margin: .5rem auto;
@@ -284,11 +302,11 @@
     padding-bottom: .2rem
   }
 
-  .pub .content .modify .dispose {
+  .reg .content .modify .dispose {
     padding: 1rem 0
   }
 
-  .pub .content .modify .dispose div {
+  .reg .content .modify .dispose div {
     width: 4rem;
     height: .6rem;
     line-height: .6rem;
@@ -298,7 +316,7 @@
     margin: 0 auto .5rem
   }
 
-  .pub .content .modify .text {
+  .reg .content .modify .text {
     color: #666;
     width: 100%;
     height: auto;
@@ -307,7 +325,7 @@
     background: #fff
   }
 
-  .pub .content .modify .text i {
+  .reg .content .modify .text i {
     width: 75%;
     margin: 0 auto;
     display: block;
@@ -317,19 +335,19 @@
     color: #999
   }
 
-  .pub .content .modify .text i .spans {
+  .reg .content .modify .text i .spans {
     display: block;
     float: left
   }
 
-  .pub .content .modify .text i .span {
+  .reg .content .modify .text i .span {
     width: 90%;
     text-align: left;
     display: block;
     float: left
   }
 
-  .pub .content .modify .text .start {
+  .reg .content .modify .text .start {
     background: #83ca4e;
     font-size: .26rem;
     color: #fff;
@@ -341,35 +359,35 @@
     margin: .5rem auto
   }
 
-  .pub .content .modify .qrdiv {
+  .reg .content .modify .qrdiv {
     text-align: center;
     color: #666;
     font-size: .28rem
   }
 
-  .pub .content .modify .qrdiv .titl {
+  .reg .content .modify .qrdiv .titl {
     padding-bottom: .3rem
   }
 
-  .pub .content .modify .qrdiv .qr {
+  .reg .content .modify .qrdiv .qr {
     width: 2.97rem;
     height: 2.97rem;
     margin: 0 auto
   }
 
-  .pub .content .modify .qrdiv .qr img {
+  .reg .content .modify .qrdiv .qr img {
     width: 100%;
     height: 100%
   }
 
-  .pub .content .modify .activation .Version, .pub .content .modify .upgrade .Version {
+  .reg .content .modify .activation .Version, .reg .content .modify .upgrade .Version {
     width: 100%;
     height: 3.2rem;
     background: #fff;
     padding-bottom: .1rem
   }
 
-  .pub .content .modify .activation .Version .center, .pub .content .modify .upgrade .Version .center {
+  .reg .content .modify .activation .Version .center, .reg .content .modify .upgrade .Version .center {
     width: 90%;
     height: 3rem;
     margin: 0 auto;
@@ -381,7 +399,7 @@
     overflow: hidden
   }
 
-  .pub .content .modify .activation .Version .center .title, .pub .content .modify .upgrade .Version .center .title {
+  .reg .content .modify .activation .Version .center .title, .reg .content .modify .upgrade .Version .center .title {
     width: .7rem;
     height: 100%;
     background: #ff9249;
@@ -394,7 +412,7 @@
     float: left
   }
 
-  .pub .content .modify .activation .Version .center .suggest, .pub .content .modify .upgrade .Version .center .suggest {
+  .reg .content .modify .activation .Version .center .suggest, .reg .content .modify .upgrade .Version .center .suggest {
     width: 85%;
     height: 100%;
     font-size: .24rem;
@@ -403,22 +421,22 @@
     color: #666
   }
 
-  .pub .content .modify .activation .Version .center .suggest .txt, .pub .content .modify .upgrade .Version .center .suggest .txt {
+  .reg .content .modify .activation .Version .center .suggest .txt, .reg .content .modify .upgrade .Version .center .suggest .txt {
     margin-left: .26rem
   }
 
-  .pub .content .modify .activation .expansion, .pub .content .modify .upgrade .expansion {
+  .reg .content .modify .activation .expansion, .reg .content .modify .upgrade .expansion {
     width: 100%;
     height: auto;
     overflow: hidden;
-    padding: .4rem 0;
+    padding: 0;
     text-align: center;
     font-size: .28rem;
     color: #666;
     background-color: #fff
   }
 
-  .pub .content .modify .activation .expansion .centCode, .pub .content .modify .upgrade .expansion .centCode {
+  .reg .content .modify .activation .expansion .centCode, .reg .content .modify .upgrade .expansion .centCode {
     width: 80%;
     font-size: .28rem;
     text-align: center;
@@ -427,7 +445,7 @@
     padding: .1rem 0
   }
 
-  .pub .content .modify .activation .expansion .promotion, .pub .content .modify .upgrade .expansion .promotion {
+  .reg .content .modify .activation .expansion .promotion, .reg .content .modify .upgrade .expansion .promotion {
     width: 6rem;
     height: .8rem;
     line-height: .8rem;
@@ -436,10 +454,10 @@
     color: #fff;
     background: #3d80fc;
     margin: 1rem auto 0;
-    border-radius: .1rem
+    border-radius: .1rem;
   }
 
-  .pub .content .modify .activation .expansion .Prev, .pub .content .modify .upgrade .expansion .Prev {
+  .reg .content .modify .activation .expansion .Prev, .reg .content .modify .upgrade .expansion .Prev {
     width: 6rem;
     height: .8rem;
     line-height: .8rem;
@@ -452,7 +470,7 @@
     border-radius: .1rem
   }
 
-  .pub .content .modify .activation .expansion .center_input, .pub .content .modify .upgrade .expansion .center_input {
+  .reg .content .modify .activation .expansion .center_input, .reg .content .modify .upgrade .expansion .center_input {
     width: 6rem;
     height: auto;
     border-bottom: 1px solid #c2c2c2;
@@ -460,10 +478,11 @@
     text-align: center;
     font-size: .32rem;
     margin: .4rem auto;
-    position: relative
+    position: relative;
+    margin-top: 0;
   }
 
-  .pub .content .modify .activation .expansion .center_input input, .pub .content .modify .upgrade .expansion .center_input input {
+  .reg .content .modify .activation .expansion .center_input input, .reg .content .modify .upgrade .expansion .center_input input {
     width: 100%;
     height: .6rem;
     border: none;
@@ -472,21 +491,21 @@
     margin-top: .2rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu {
     width: 100%;
     height: 100%;
     color: #7fafff
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-ellipsis, .pub .content .modify .upgrade .expansion .center_input .van-ellipsis {
+  .reg .content .modify .activation .expansion .center_input .van-ellipsis, .reg .content .modify .upgrade .expansion .center_input .van-ellipsis {
     color: #7fafff
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu__title, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu__title, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title {
     font-size: .24rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .xia, .pub .content .modify .upgrade .expansion .center_input .xia {
+  .reg .content .modify .activation .expansion .center_input .xia, .reg .content .modify .upgrade .expansion .center_input .xia {
     position: absolute;
     right: .16rem;
     top: 0;
@@ -496,25 +515,25 @@
     height: .12rem
   }
 
-  .pub .content .modify .activation .expansion .center_input #xz, .pub .content .modify .upgrade .expansion .center_input #xz {
+  .reg .content .modify .activation .expansion .center_input #xz, .reg .content .modify .upgrade .expansion .center_input #xz {
     transform: rotate(180deg)
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-menu__title:after, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title:after {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-menu__title:after, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-menu__title:after {
     display: none
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-dropdown-item--down, .pub .content .modify .upgrade .expansion .center_input .van-dropdown-item--down {
+  .reg .content .modify .activation .expansion .center_input .van-dropdown-item--down, .reg .content .modify .upgrade .expansion .center_input .van-dropdown-item--down {
     width: 5rem;
     margin: auto;
     margin-top: .1rem
   }
 
-  .pub .content .modify .activation .expansion .center_input .van-overlay, .pub .content .modify .upgrade .expansion .center_input .van-overlay {
+  .reg .content .modify .activation .expansion .center_input .van-overlay, .reg .content .modify .upgrade .expansion .center_input .van-overlay {
     background: none
   }
 
-  .pub .content .modify .activation .expansion .center_input > div, .pub .content .modify .upgrade .expansion .center_input > div {
+  .reg .content .modify .activation .expansion .center_input > div, .reg .content .modify .upgrade .expansion .center_input > div {
     color: #1b1b1b;
     font-size: .32rem;
     padding-bottom: .1rem;

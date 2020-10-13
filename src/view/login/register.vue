@@ -127,7 +127,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   .reg {
     width: 100%;
     height: 100%;
