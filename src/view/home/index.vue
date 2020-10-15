@@ -121,10 +121,9 @@
       toRenewal(item){
         this.$router.push({path: '/bindCode', query: {id: item.user_id, type: 'renewal'}})
       },
-      checkWxScanLogin(){
+      checkWxScanLogin(item){
         this.timer = setInterval(() => {
-          commonApi.checkWxScanLogin({uuid: this.uuid}).then(res => {
-            console.log(4);
+          commonApi.checkWxScanLogin({uuid: this.uuid}, { 'device-uuid': item.device_uuid}).then(res => {
             if (res) {
               this.clearTimer()
               this.$toast('扫码成功')
@@ -142,12 +141,14 @@
 
         commonApi.getWxQrcode({
           workId: item.id
+        }, {
+          'device-uuid': item.device_uuid
         }).then(res => {
           this.popupShow = true
           this.qrcode = res.QrUrl2
           this.uuid = res.Uuid
           // this.name = item.wx_nick_name
-          this.checkWxScanLogin()
+          this.checkWxScanLogin(item)
         }).finally(() => {
           loading.close()
         })
@@ -164,6 +165,8 @@
         })
         commonApi.restart1({
           wxId: item.wx_user
+        }, {
+          'device-uuid': item.device_uuid
         }).then(res => {
           this.$toast('唤醒登录成功')
           this.getList()
@@ -177,6 +180,8 @@
         }).then(()=> {
           commonApi.restart2({
             wxId: item.wx_user
+          }, {
+            'device-uuid': item.device_uuid
           }).then(res => {
             this.$toast('强制重启成功')
             this.popupShow = true

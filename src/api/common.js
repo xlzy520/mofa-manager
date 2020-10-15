@@ -6,19 +6,19 @@ export default {
   getWork(data) {
     return fetch('/work/get', data, 'get')
   },
-  getWxQrcode(data) {
-    return fetch('/wx/login/getqrcode', data)
+  getWxQrcode(data, headers) {
+    return fetch('/wx/login/getqrcode', data, 'post', {headers})
   },
   renewal({card, workId}) {
     return fetch(`/work/renewal?card=${card}&workId=${workId}`)
   },
-  restart1(data) {
-    return fetch('/wx/restart1/'+data.wxId, data)
+  restart1(data, headers) {
+    return fetch('/wx/restart1/'+data.wxId, data, 'post', {headers})
   },
-  restart2(data) {
-    return fetch('/wx/restart2/'+data.wxId, data)
+  restart2(data, headers) {
+    return fetch('/wx/restart2/'+data.wxId, data, 'post', {headers})
   },
-  checkWxScanLogin(data) {
-    return fetch('/wx/login/checklogin/'+data.uuid, data)
+  checkWxScanLogin(data, headers) {
+    return fetch('/wx/login/checklogin/'+data.uuid, data, 'post', {headers})
   },
 }
