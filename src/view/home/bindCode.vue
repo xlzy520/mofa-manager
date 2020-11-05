@@ -98,10 +98,11 @@
           // this.$toast('新增激活码成功')
           // this.workId = res.id
           // this.$router.push({path: '/BindQRCode', query: {id: 6}})
-
-        cardApi.active({
+        const service = this.type === 'renewal' ? commonApi.renewal : cardApi.active
+        service({
           card: this.code,
-          userId: this.listUserId ? this.listUserId :this.userId
+          userId: this.listUserId ? this.listUserId :this.userId,
+          workId: this.listUserId ? this.listUserId :this.userId,
         }).then(res => {
           this.$toast('新增激活码成功')
           this.workId = res.id
