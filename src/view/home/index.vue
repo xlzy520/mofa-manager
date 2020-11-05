@@ -119,7 +119,7 @@
       },
 
       toRenewal(item){
-        this.$router.push({path: '/bindCode', query: {id: item.user_id, type: 'renewal'}})
+        this.$router.push({path: '/bindCode', query: {id: item.id, type: 'renewal'}})
       },
       checkWxScanLogin(item){
         this.timer = setInterval(() => {
