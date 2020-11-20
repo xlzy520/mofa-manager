@@ -21,4 +21,5 @@ export default {
   checkWxScanLogin(data, headers) {
     return fetch('/wx/login/checklogin/'+data.uuid, data, 'post', {headers})
   },
+  
 }
